@@ -1,5 +1,3 @@
-SetEnv ENVIRONMENT development
-
 RewriteEngine On
 RewriteCond %{REQUEST_URI} !(css|js|png)$
 RewriteRule ^(.*)$ index.php [L]

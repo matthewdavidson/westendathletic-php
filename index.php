@@ -18,8 +18,7 @@
  * NOTE: If you change these, also change the error_reporting() code below
  *
  */
-	define('ENVIRONMENT', getenv('ENVIRONMENT'));
-/*
+	define('ENVIRONMENT', getenv('ENVIRONMENT'));/*
  *---------------------------------------------------------------
  * ERROR REPORTING
  *---------------------------------------------------------------
@@ -32,17 +31,16 @@ if (defined('ENVIRONMENT'))
 {
 	switch (ENVIRONMENT)
 	{
-		case 'development':
-			error_reporting(E_ALL);
+		case 'test':
+			error_reporting(E_ERROR | E_WARNING | E_PARSE);
 		break;
 
-		case 'test':
 		case 'production':
 			error_reporting(0);
 		break;
 
 		default:
-			exit('The application environment is not set correctly.');
+			error_reporting(E_ALL);
 	}
 }
 

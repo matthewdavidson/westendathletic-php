@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://westendathletic-php.herokuapp.com/';
+$config['base_url']	= '';
 
 /*
 |--------------------------------------------------------------------------
@@ -224,7 +224,7 @@ $config['cache_path'] = '';
 | MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = '545f5b2375447e655b336b5a7c';
+$config['encryption_key'] = '0jhbtP4Gvl1k544VzplMfyRqJgE2JO2B';
 
 /*
 |--------------------------------------------------------------------------
