@@ -33,9 +33,9 @@ class Migration_Add_users extends CI_Migration {
 		$this->dbforge->create_table('users');
 	}
 
-public function down()
-{
-	$this->dbforge->drop_table('users');
-}
+	public function down()
+	{
+		$this->dbforge->drop_table('users');
+	}
 
 }

@@ -4,14 +4,13 @@ class Session_model extends CI_Model {
 
 	var $username = '';
 	var $password = '';
+	var $user = null;
+	var $is_invalid = false;
 
-	function __construct()
+	function __construct($params = array())
 	{
 		parent::__construct();
-	}
 
-	function build($params = array())
-	{
 		if (isset($params['username']) && isset($params['password']))
 		{
 			$this->username = $params['username'];
@@ -21,6 +20,21 @@ class Session_model extends CI_Model {
 
 	function is_valid()
 	{
+		if (isset($this->username) && isset($this->password))
+		{
+			$user = new User();
+			$user->username = $this->username;
+			$user->password_hash = $this->password;
+
+			$this->user = $user->authenticate();
+
+			if ($this->user) 
+			{
+				return true;
+			}
+		}
+
+		$this->is_invalid = true;
 		return false;
 	}
 

@@ -8,14 +8,25 @@
 
   <div class="span6">
 
-  <?php echo form_open('admin/session/create_session', array('class' => 'well')); ?>
+  <?php echo form_open('admin/sessions/create_session', array('class' => 'well')); ?>
 
-    <div class="control-group">
-      <?php echo form_input(array('name' => 'username', 'value' => $session['username'], 'placeholder' => 'Username')); ?>
+    <div class="control-group <?php if ($session->is_invalid) { echo 'error'; } ?>">
+      <?php 
+        echo form_input(array(
+          'name' => 'username', 
+          'value' => $session->username, 
+          'placeholder' => 'Username'
+        )); 
+      ?>
     </div>
 
-    <div class="control-group">
-      <?php echo form_input(array('name' => 'password', 'value' => $session['password'], 'placeholder' => 'Password')); ?>
+    <div class="control-group <?php if ($session->is_invalid) { echo 'error'; } ?>">
+      <?php 
+        echo form_password(array(
+          'name' => 'password', 
+          'value' => $session->password, 
+          'placeholder' => 'Password'
+        )); ?>
     </div>
 
     <?php echo form_input(array('type' => 'submit', 'value' => 'Login', 'class' => 'btn btn-primary')); ?>

@@ -5,39 +5,45 @@ class Sessions extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		
-		$this->load->model('session_model', 'model');
+
+		$this->load->model('session_model');
 	}
 
 	public function new_session()
 	{
-		$session = $this->model->build();
+		$session = new $this->session_model();
 
 		$this->load->view('admin/sessions/new', array('session' => $session));
 	}
 
 	public function create_session()
 	{
-		$params = $this->input->post('session');
-		$session = $this->model->build($params);
+		$session = new $this->session_model($this->input->post());
 
 		if ($session->is_valid())
 		{
-			$this->session->set_userdata('user_id', $session->id);
-			redirect('/admin/home');
+			$this->session->set_userdata('user_id', $session->user->id);
+			redirect('/');
 		}
 		else
 		{
-			$this->session->set_flashdata('error', 'Your login attempt was unsuccessful.');
-			$this->load->view('admin/sessions/new');
+			$data = array(
+				'alerts' => array('error' => 'Your login attempt was unsuccessful.'),
+				'session' => $session
+			);
+
+			$this->load->view('admin/sessions/new', $data);
 		}
 	}
 
 	public function destroy_session()
 	{
 		$this->session->unset_userdata('user_id');
-		$this->session->set_flashdata('info', 'You have successfully logged out.');
-		redirect('/');
+
+		$data = array(
+			'alerts' => array('info' => 'You have successfully logged out.')
+		);
+		$this->load->view('home', $data);
 	}
 
 }
