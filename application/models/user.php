@@ -39,7 +39,9 @@ class User extends DataMapper {
 
 		$user->where('username', $this->username)->get();
 
+		$this->email = $user->email;
 		$this->password_salt = $user->password_salt;
+		$this->_encrypt('password_hash');
 
 		$this->validate()->get();
 
