@@ -7,6 +7,7 @@
   <?php echo link_tag(site_url('assets/css/application.css')); ?>
   <script src="<?php echo site_url('assets/js/jquery.min.js'); ?>" type="text/javascript"></script>
   <script src="<?php echo site_url('assets/js/bootstrap.min.js'); ?>" type="text/javascript"></script>
+  <script src="<?php echo site_url('assets/js/modals.js'); ?>" type="text/javascript"></script>
 </head>
 
 <body>
@@ -19,13 +20,14 @@
 
 			<ul class="nav pull-right">
 
-        <?php if (is_valid_session($this->session->userdata('user_id'))) { ?>
+        <?php if (is_valid_session()) { ?>
 
         <li class="dropdown">
 
           <?php echo anchor('#', 'Admin <b class="caret"></b>', 'class="dropdown-toggle" data-toggle="dropdown"'); ?>
 
           <ul class="dropdown-menu">
+            <li><?php echo anchor('/admin', 'Dashboard'); ?></li>
             <li><?php echo anchor('/admin/users', 'Users'); ?></li>
             <li><?php echo anchor('/admin/teams', 'Teams'); ?></li>
             <li><?php echo anchor('/admin/competitions', 'Competitions'); ?></li>
@@ -50,3 +52,5 @@
 <div class="container">
 
 <?php $this->load->view('common/alerts'); ?>
+
+<?php $this->load->view('common/modal'); ?>

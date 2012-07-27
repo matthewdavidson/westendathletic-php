@@ -23,7 +23,7 @@ class Sessions extends CI_Controller {
 		if ($session->is_valid())
 		{
 			$this->session->set_userdata('user_id', $session->user->id);
-			redirect('/');
+			redirect('/admin');
 		}
 		else
 		{

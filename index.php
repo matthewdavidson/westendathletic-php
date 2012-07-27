@@ -32,10 +32,6 @@ if (defined('ENVIRONMENT'))
 {
 	switch (ENVIRONMENT)
 	{
-		case 'test':
-			error_reporting(E_ERROR | E_WARNING | E_PARSE);
-		break;
-
 		case 'production':
 			error_reporting(0);
 		break;

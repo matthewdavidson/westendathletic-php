@@ -2,19 +2,38 @@
 
 if ( ! function_exists('is_valid_session'))
 {
-	function is_valid_session($session_user_id)
+	function is_valid_session()
 	{
-		if ($session_user_id) 
+		$CI =& get_instance();
+
+		if ($CI->session->userdata('user_id')) 
 		{
-			$user = new User($session_user_id);
+			$user = new User($CI->session->userdata('user_id'));
 
-			if ($user) 
-			{
-				return true;
-			}
+			if ($user->result_count() != 1)
+	  	{
+	  		$CI->session->unset_userdata('user_id');
+	  		return false;
+	  	}
+	  	else
+	  	{
+	  		return true;
+	  	}
 		}
+	}
+}
 
-		return false;
+if ( ! function_exists('authentication_required'))
+{
+	function authentication_required()
+	{
+		$CI =& get_instance();
+		
+		if ( ! is_valid_session())
+		{
+			$CI->session->set_flashdata('alerts', array('warn' => 'You must be logged in to view this page.'));
+  		redirect('/');
+		}
 	}
 }
 
