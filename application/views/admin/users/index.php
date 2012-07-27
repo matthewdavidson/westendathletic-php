@@ -21,6 +21,7 @@
         <thead>
           <tr>
             <th>Username</th>
+            <th>Email Address</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -31,16 +32,21 @@
           <?php foreach ($users as $user) { ?>
           <tr>
             <td><?php echo $user->username; ?></td>
+            <td><?php echo $user->email; ?></td>
             <td>
               <?php echo anchor('/admin/users/edit/' . $user->id, 'Edit User', 'class="btn"'); ?>
-              <?php 
-              echo anchor(
-                '/admin/users#deleteItem', 
-                'Delete User',
-                'data-url="' . site_url('/admin/users/destroy/' . $user->id) . '"' .
-                'data-name="' . $user->username . '"' .
-                'class="btn btn-danger delete"'
-              ); 
+              <?php
+
+              if ($user->id != $this->session->userdata('user_id'))
+              {
+                echo anchor(
+                  '/admin/users#deleteItem', 
+                  'Delete User',
+                  'data-url="' . site_url('/admin/users/destroy/' . $user->id) . '"' .
+                  'data-name="' . $user->username . '"' .
+                  'class="btn btn-danger delete"'
+                );
+              }
               ?>
             </td>
           </tr>

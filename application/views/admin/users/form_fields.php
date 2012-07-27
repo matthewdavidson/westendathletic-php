@@ -8,6 +8,14 @@
     </div>
   </div>
 
+  <div class="control-group <?php if($user->error->email) { echo 'error'; } ?>">
+    <?php echo form_label('Email Address', 'email', array('class' => 'control-label')); ?>
+    <div class="controls">
+      <?php echo form_input('email', $user->email); ?>
+      <span class="help-inline"><?php echo $user->error->email; ?></span>
+    </div>
+  </div>
+
   <div class="control-group <?php if($user->error->password_hash) { echo 'error'; } ?>">
     <?php echo form_label('Password', 'password_hash', array('class' => 'control-label')); ?>
     <div class="controls">

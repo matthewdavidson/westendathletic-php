@@ -1,7 +1,7 @@
 <?php $this->load->view('common/header'); ?>
 
 <div class="page-header">
-  <h1>Admin Dashboard</h1>
+  <h1>Dashboard</h1>
 </div>
 
 <div class="row">

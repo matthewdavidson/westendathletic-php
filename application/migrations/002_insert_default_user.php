@@ -7,6 +7,7 @@ class Migration_Insert_default_user extends CI_Migration {
 		$user = new User();
 
 		$user->username = 'admin';
+		$user->email = 'admin@emailaddress.com';
 		$user->password_hash = 'password';
 		$user->confirm_password_hash = $user->password_hash;
 

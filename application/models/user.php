@@ -9,15 +9,20 @@ class User extends DataMapper {
 	    'rules' => array('required', 'trim', 'unique', 'alpha_dash', 'min_length' => 3, 'max_length' => 20)
 	  ),
 
-	  'password_hash' => array(
-	    'label' => 'Password',
-	    'rules' => array('required', 'min_length' => 6, 'encrypt'),
-	    'get_rules' => array('clear')
+	  'email' => array(
+	    'label' => 'Email Address',
+	    'rules' => array('required', 'trim', 'unique', 'max_length' => 255)
 	  ),
 
 	  'confirm_password_hash' => array(
 	    'label' => 'Confirm Password',
-	    'rules' => array('required', 'encrypt', 'matches' => 'password_hash'),
+	    'rules' => array('required', 'matches' => 'password_hash'),
+	    'get_rules' => array('clear')
+	  ),
+
+	  'password_hash' => array(
+	    'label' => 'Password',
+	    'rules' => array('required', 'min_length' => 6, 'encrypt'),
 	    'get_rules' => array('clear')
 	  ),
 
@@ -50,7 +55,7 @@ class User extends DataMapper {
 
 	function _encrypt($field)
 	{
-	  if ( ! empty($this->{$field}))
+	  if ( ! empty($this->{$field}) && empty($this->error->all))
 	  {
       if (empty($this->password_salt))
       {
@@ -63,10 +68,7 @@ class User extends DataMapper {
 
 	function _clear($field)
 	{
-	  if ( ! empty($this->{$field}))
-	  {
-      $this->{$field} = '';
-	  }
+		$this->{$field} = '';
 	}
 }
 

@@ -17,6 +17,11 @@ class Migration_Add_users extends CI_Migration {
 				'constraint' => '255'
 			),
 
+			'email' => array(
+				'type' => 'VARCHAR',
+				'constraint' => '255'
+			),
+
 			'password_hash' => array(
 				'type' => 'VARCHAR',
 				'constraint' => '255'

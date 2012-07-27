@@ -10,14 +10,14 @@ if ( ! function_exists('is_valid_session'))
 		{
 			$user = new User($CI->session->userdata('user_id'));
 
-			if ($user->result_count() != 1)
+			if ($user->exists())
 	  	{
-	  		$CI->session->unset_userdata('user_id');
-	  		return false;
+	  		return true;
 	  	}
 	  	else
 	  	{
-	  		return true;
+	  		$CI->session->unset_userdata('user_id');
+	  		return false;
 	  	}
 		}
 	}

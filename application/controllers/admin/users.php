@@ -35,7 +35,7 @@ class Users extends CI_Controller {
   {
   	$this->user_model->get_by_id($id);
 
-  	if ($this->user_model->result_count() != 1)
+  	if ( ! $this->user_model->exists())
   	{
   		show_404();
   	}
@@ -49,9 +49,15 @@ class Users extends CI_Controller {
 
   public function create()
   {
-  	$this->user_model->username = $this->input->post('username');
-  	$this->user_model->password_hash = $this->input->post('password_hash');
-  	$this->user_model->confirm_password_hash = $this->input->post('confirm_password_hash');
+    if ( ! $this->input->post())
+    {
+      show_404();
+    }
+
+    $this->user_model->username = $this->input->post('username');
+    $this->user_model->email = $this->input->post('email');
+    $this->user_model->password_hash = $this->input->post('password_hash');
+    $this->user_model->confirm_password_hash = $this->input->post('confirm_password_hash');
 
   	if ($this->user_model->save()) 
   	{
@@ -71,38 +77,44 @@ class Users extends CI_Controller {
 
   public function update($id)
   {
-  	$this->user_model->get_by_id($id);
+    if ( ! $this->input->post())
+    {
+    	show_404();
+    }
 
-  	if ($this->user_model->result_count() != 1)
-  	{
-  		show_404();
-  	}
+    $this->user_model->get_by_id($id);
 
-  	$this->user_model->username = $this->input->post('username');
-  	$this->user_model->password_hash = $this->input->post('password_hash');
-  	$this->user_model->confirm_password_hash = $this->input->post('confirm_password_hash');
+    if ( ! $this->user_model->exists())
+    {
+    	show_404();
+    }
 
-  	if ($this->user_model->save()) 
-  	{
-  		$this->session->set_flashdata('alerts', array('success' => 'User was successfully updated.'));
-  		redirect('/admin/users');
-  	}
-  	else
-  	{
-  		$data = array(
-  			'user' => $this->user_model,
-				'alerts' => array('error' => 'User edit was unsuccessful.')
-			);
+    $this->user_model->username = $this->input->post('username');
+    $this->user_model->email = $this->input->post('email');
+    $this->user_model->password_hash = $this->input->post('password_hash');
+    $this->user_model->confirm_password_hash = $this->input->post('confirm_password_hash');
 
-			$this->load->view('admin/users/edit', $data);
-  	}
+    if ($this->user_model->save()) 
+    {
+    	$this->session->set_flashdata('alerts', array('success' => 'User was successfully updated.'));
+    	redirect('/admin/users');
+    }
+    else
+    {
+    	$data = array(
+    		'user' => $this->user_model,
+    		'alerts' => array('error' => 'User edit was unsuccessful.')
+    	);
+
+    	$this->load->view('admin/users/edit', $data);
+    }
   }
 
   public function destroy($id)
   {
     $this->user_model->get_by_id($id);
 
-    if ($this->user_model->result_count() != 1)
+    if ( ! $this->user_model->exists())
   	{
   		show_404();
   	}
